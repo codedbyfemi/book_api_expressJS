@@ -19,3 +19,27 @@ export const getBooks = async (req, res) => {
     const formattedBooks = books.map(book => BookDTO(book))
     res.status(200).json(formattedBooks);
 }
+
+export const getBookById = async (req, res) => {
+    const id = req.params.id;
+    const book = await Book.findById(id)
+    const formattedBooks = BookDTO(book)
+
+    if (!book) {
+        res.status(404).json({msg: "Book not found"});
+    }
+    res.status(200).json(formattedBooks);
+}
+
+export const deleteBookById = async (req, res) => {
+  const id = req.params.id;
+  const book = await Book.findByIdAndDelete(id);
+  const formattedBooks = BookDTO(book)
+
+    if (!book) {
+      res.status(404).json({
+          error: 'Book not found'
+      })
+  }
+  res.status(200).json({msg: "Book deleted successfully", book: formattedBooks});
+}
