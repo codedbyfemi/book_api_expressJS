@@ -1,4 +1,4 @@
-export const BookDTO = function BookDTO(book) {
+export function BookDTO(book) {
     return {
         id: book.id,
         title: book.title,
